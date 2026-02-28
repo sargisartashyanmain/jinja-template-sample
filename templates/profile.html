@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import "macros.html" as macros %}
+
+{% block title %}Candidate Profile - {{ user.name }}{% endblock %}
+
+{% block content %}
+<article class="profile-card">
+    <header>
+        <h1>{{ user.name }}</h1>
+        <p><strong>{{ user.role }}</strong></p>
+    </header>
+
+    <div class="profile-card__body">
+        <p>Based in: {{ user.location }}</p>
+        
+        <h3>Technical Skills:</h3>
+        <ul class="profile-card__skills">
+            {% for skill in user.skills %}
+                {{ macros.render_skill_tag(skill) }}
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% if user.is_available %}
+        <p class="status--online">✓ Open to new opportunities</p>
+    {% else %}
+        <p>Currently unavailable</p>
+    {% endif %}
+</article>
+{% endblock %}
